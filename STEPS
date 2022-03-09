@@ -1,0 +1,5 @@
+1. Step directory for helm `araalifw` in this case under `charts`.
+2. `helm lint .` in the `araali` directory.
+3. `helm package .` in the `araali` directory.
+4. `helm repo index --url https://araalinetworks.github.io/araali-helm/ .` in the `charts` directory to generate index.yaml.
+5. Move `index.yaml` to root directory
