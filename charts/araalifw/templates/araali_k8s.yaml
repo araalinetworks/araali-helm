@@ -6,7 +6,7 @@ metadata:
   labels:
     is_araali: "true"
 data:
-  workloadId: {{ .Values.workload_id }}
+  workloadId: {{ .Values.araali.workload_id }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -19,16 +19,16 @@ data:
   gtorcfg.tap_mode: "true"
   gtorcfg.gtor_shim_enable: "false"
   gtorcfg.ebpf: "true"
-  gtorcfg.ebpf_cookie: "{{ .Values.enforce }}"
-  gtorcfg.gtor_upgrade: "{{ .Values.upgrade }}"
-  gtorcfg.fog_fqdn: "{{ .Values.fog }}"
+  gtorcfg.ebpf_cookie: "{{ .Values.araali.enforce }}"
+  gtorcfg.gtor_upgrade: "{{ .Values.araali.upgrade }}"
+  gtorcfg.fog_fqdn: "{{ .Values.araali.fog }}"
   gtorenv.k8s_yaml_version: "1.1"
   gtorenv.araali_enable: "1"
   gtorenv.path: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/hroot/usr/sbin:/hroot/usr/bin:/hroot/sbin:/hroot/bin:/hroot/usr/local/sbin:/hroot/usr/local/bin"
-  araalitags.zone: "{{ .Values.zone }}"
-  araalitags.clusterName: "{{ .Values.cluster_name }}"
-  araalitags.app: "{{ .Values.app }}"
-  araalitags.origImageName: "{{ .Values.fw_image }}"
+  araalitags.zone: "{{ .Values.araali.zone }}"
+  araalitags.clusterName: "{{ .Values.araali.cluster_name }}"
+  araalitags.app: "{{ .Values.araali.app }}"
+  araalitags.origImageName: "{{ .Values.araali.fw_image }}"
 ---
 kind: DaemonSet
 apiVersion: apps/v1
@@ -48,7 +48,7 @@ spec:
         is_araali: "true"
     spec:
       initContainers:
-      - image: "{{ .Values.fw_init_image }}"
+      - image: "{{ .Values.araali.fw_init_image }}"
         imagePullPolicy: Always
         name: araali-fw-init
         env:
@@ -66,7 +66,7 @@ spec:
         securityContext:
           privileged: true
       containers:
-      - image: "{{ .Values.fw_image }}"
+      - image: "{{ .Values.araali.fw_image }}"
         imagePullPolicy: Always
         name: araali-fw
         lifecycle:
@@ -155,7 +155,7 @@ metadata:
   labels:
     is_araali: "true"
 data:
-  workloadId: {{ .Values.workload_id }}
+  workloadId: {{ .Values.araali.workload_id }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -165,13 +165,13 @@ metadata:
   labels:
     is_araali: "true"
 data:
-  araalitags.operator.fog_fqdn: "{{ .Values.fog }}"
+  araalitags.operator.fog_fqdn: "{{ .Values.araali.fog }}"
   araalitags.operator.upgrade_disable: "0"
   araalitags.operator.araali_k8s_policy_enable: "1"
-  araalitags.zone: "{{ .Values.zone }}"
-  araalitags.clusterName: "{{ .Values.cluster_name }}"
-  araalitags.app: "{{ .Values.app }}"
-  araalitags.origImageName: "{{ .Values.fw_image }}"
+  araalitags.zone: "{{ .Values.araali.zone }}"
+  araalitags.clusterName: "{{ .Values.araali.cluster_name }}"
+  araalitags.app: "{{ .Values.araali.app }}"
+  araalitags.origImageName: "{{ .Values.araali.fw_image }}"
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -228,7 +228,7 @@ spec:
         spec:
             containers:
             - name: servicediscovery
-              image: "{{ .Values.autok8s_image }}"
+              image: "{{ .Values.araali.autok8s_image }}"
               imagePullPolicy: Always
               volumeMounts:
                 - name: araali-secrets

@@ -1,10 +1,11 @@
-workload_id: 
-cluster_name: 
-fog: 
-zone: 
-app: 
-enforce: false
-upgrade: true
-autok8s_image: quay.io/araalinetworks/autok8s:prod
-fw_image: quay.io/araalinetworks/araali_fw:prod
-fw_init_image: quay.io/araalinetworks/araali_fw_init:prod
+araali:
+  workload_id:
+  cluster_name:
+  fog:
+  zone:
+  app:
+  enforce: false
+  upgrade: true
+  autok8s_image: quay.io/araalinetworks/autok8s:prod
+  fw_image: quay.io/araalinetworks/araali_fw:prod
+  fw_init_image: quay.io/araalinetworks/araali_fw_init:prod
