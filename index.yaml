@@ -1,9 +1,20 @@
 apiVersion: v1
 entries:
+  araali-attack:
+  - apiVersion: v2
+    appVersion: 0.5.76
+    created: "2022-03-30T00:32:06.197422113Z"
+    description: A Helm chart for installing the Araali Vulnerability Detection
+    digest: 4df88bb27b866361575eff33ffdb6d59986bca8748f90457e0224d282ce156cb
+    name: araali-attack
+    type: application
+    urls:
+    - https://araalinetworks.github.io/araali-helm/charts/attack/araali-attack-1.0.0.tgz
+    version: 1.0.0
   araali-fw:
   - apiVersion: v2
     appVersion: 0.5.71
-    created: "2022-03-10T17:27:04.513522814Z"
+    created: "2022-03-30T00:32:06.196542712Z"
     description: A Helm chart for installing the Araali Distributed Firewall
     digest: cb09dccb24463f5afb81457d8a9761c1bf74d2ee84cd68c2d5fee3fc5c6ec1e3
     name: araali-fw
@@ -13,7 +24,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 0.5.71
-    created: "2022-03-10T17:27:04.51308974Z"
+    created: "2022-03-30T00:32:06.196185485Z"
     description: A Helm chart for installing the Araali Distributed Firewall
     digest: 34cb552cec0a0450338c17b8c33b27f4db40c5b70920cdc24464224836dc9d37
     name: araali-fw
@@ -21,4 +32,4 @@ entries:
     urls:
     - https://araalinetworks.github.io/araali-helm/charts/araalifw/araali-fw-1.0.0.tgz
     version: 1.0.0
-generated: "2022-03-10T17:27:04.512474554Z"
+generated: "2022-03-30T00:32:06.194600993Z"

@@ -1,0 +1,68 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: attack-config
+  namespace: araali-attack
+  labels:
+    is_araali: "true"
+data:
+  cfg.listen_port: "{{ .Values.araali.server_listen_port }}"
+  cfg.enable_socat_c2c: "{{ .Values.araali.enable_socat_c2c }}"
+  cfg.socat_c2c_endpoint: "{{ .Values.araali.socat_c2c_endpoint }}"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    is_araali: "true"
+  name: araali-attack
+spec:
+  selector:
+    matchLabels:
+      app: araali-attack
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: araali-attack
+    spec:
+      containers:
+        - name: araali-attack
+          image: {{ .Values.araali.image }}
+          imagePullPolicy: Always
+          volumeMounts:
+          - name: attack-config
+            mountPath: /attack-config
+      volumes:
+        - name: attack-config
+          configMap:
+            name: attack-config
+---
+apiVersion: araalinetworks.com/v1
+kind: AraaliPolicy
+metadata:
+  name: {{ .Values.araali.zone }}.araali-attack.policy
+containers:
+- name: araali-attack
+  pod: araali-attack
+  processes:
+  - name: attack
+    originalApp: araali-attack.araali-attack.araali-attack
+    parentProcess: bash
+    binaryName: /app/attack
+    exposedTo:
+    - zone: {{ .Values.araali.zone }}
+      originalApp: araali-attack.araali-attack.araali-attack
+      app: araali-attack.araali-attack.araali-attack
+      pod: araali-attack
+      containerName: araali-attack
+      process: attack-cli
+      parentProcess: bash
+      binaryName: /app/attack-cli
+enforce:
+  containers:
+  - name: araali-attack
+    pod: araali-attack
+    app: araali-attack
+    zone: {{ .Values.araali.zone }}
