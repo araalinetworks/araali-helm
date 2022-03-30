@@ -42,7 +42,7 @@ spec:
 apiVersion: araalinetworks.com/v1
 kind: AraaliPolicy
 metadata:
-  name: {{ .Values.araali.zone }}.araali-attack.policy
+  name: {{ required "A valid .Values.araali.zone is required" .Values.araali.zone }}.araali-attack.policy
 containers:
 - name: araali-attack
   pod: araali-attack
@@ -52,7 +52,7 @@ containers:
     parentProcess: bash
     binaryName: /app/attack
     exposedTo:
-    - zone: {{ .Values.araali.zone }}
+    - zone: {{ required "A valid .Values.araali.zone is required" .Values.araali.zone }}
       originalApp: araali-attack.araali-attack.araali-attack
       app: araali-attack.araali-attack.araali-attack
       pod: araali-attack
@@ -65,4 +65,4 @@ enforce:
   - name: araali-attack
     pod: araali-attack
     app: araali-attack
-    zone: {{ .Values.araali.zone }}
+    zone: {{ required "A valid .Values.araali.zone is required" .Values.araali.zone }}
