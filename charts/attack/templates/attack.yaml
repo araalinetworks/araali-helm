@@ -39,6 +39,7 @@ spec:
           configMap:
             name: attack-config
 ---
+{{ if eq .Values.araali.include_policy_as_code true }}
 apiVersion: araalinetworks.com/v1
 kind: AraaliPolicy
 metadata:
@@ -66,3 +67,4 @@ enforce:
     pod: araali-attack
     app: araali-attack
     zone: {{ required "A valid .Values.araali.zone is required" .Values.araali.zone }}
+{{ end }}

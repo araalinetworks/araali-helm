@@ -3,3 +3,4 @@ araali:
   enable_socat_c2c: true
   socat_c2c_endpoint: 104.41.3.199:12345
   image: araalinetworks/attack:0.5.76
+  include_policy_as_code: true

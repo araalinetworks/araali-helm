@@ -3,7 +3,17 @@ entries:
   araali-attack:
   - apiVersion: v2
     appVersion: 0.5.76
-    created: "2022-03-30T16:23:14.808275724Z"
+    created: "2022-03-30T22:36:10.68520519Z"
+    description: A Helm chart for installing the Araali Vulnerability Detection
+    digest: 3ec2a32de9f777a793e3923eab9ab2b60a6ac4f70cf49c6ad9b7d11545bcb48b
+    name: araali-attack
+    type: application
+    urls:
+    - https://araalinetworks.github.io/araali-helm/charts/attack/araali-attack-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 0.5.76
+    created: "2022-03-30T22:36:10.684429189Z"
     description: A Helm chart for installing the Araali Vulnerability Detection
     digest: ceb89324fdd0aa24aa398596312ccb57c77aa1461bf90a040e120791aba1d9a3
     name: araali-attack
@@ -13,7 +23,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 0.5.76
-    created: "2022-03-30T16:23:14.807982953Z"
+    created: "2022-03-30T22:36:10.684163669Z"
     description: A Helm chart for installing the Araali Vulnerability Detection
     digest: 4df88bb27b866361575eff33ffdb6d59986bca8748f90457e0224d282ce156cb
     name: araali-attack
@@ -24,7 +34,7 @@ entries:
   araali-fw:
   - apiVersion: v2
     appVersion: 0.5.76
-    created: "2022-03-30T16:23:14.807645155Z"
+    created: "2022-03-30T22:36:10.683948771Z"
     description: A Helm chart for installing the Araali Distributed Firewall
     digest: c0dc3d10e0820fa2027c74ec4533f071c1003d517317ecdc671e419a90f196ad
     name: araali-fw
@@ -34,7 +44,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: 0.5.71
-    created: "2022-03-30T16:23:14.806723017Z"
+    created: "2022-03-30T22:36:10.680892515Z"
     description: A Helm chart for installing the Araali Distributed Firewall
     digest: cb09dccb24463f5afb81457d8a9761c1bf74d2ee84cd68c2d5fee3fc5c6ec1e3
     name: araali-fw
@@ -44,7 +54,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 0.5.71
-    created: "2022-03-30T16:23:14.806283824Z"
+    created: "2022-03-30T22:36:10.673812461Z"
     description: A Helm chart for installing the Araali Distributed Firewall
     digest: 34cb552cec0a0450338c17b8c33b27f4db40c5b70920cdc24464224836dc9d37
     name: araali-fw
@@ -52,4 +62,4 @@ entries:
     urls:
     - https://araalinetworks.github.io/araali-helm/charts/araalifw/araali-fw-1.0.0.tgz
     version: 1.0.0
-generated: "2022-03-30T16:23:14.805831742Z"
+generated: "2022-03-30T22:36:10.6724233Z"

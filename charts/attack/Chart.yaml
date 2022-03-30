@@ -3,4 +3,4 @@ appVersion: 0.5.76
 description: A Helm chart for installing the Araali Vulnerability Detection
 name: araali-attack
 type: application
-version: 1.0.1
+version: 1.0.2
