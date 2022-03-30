@@ -140,6 +140,192 @@ spec:
         key: node.kubernetes.io/not-ready
       - operator: "Exists"
 ---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: araalipolicies.araalinetworks.com
+  labels:
+    is_araali: "true"
+spec:
+  group: araalinetworks.com
+  names:
+    plural: araalipolicies
+    singular: araalipolicy
+    kind: AraaliPolicy
+    listKind: AraaliPolicyList
+    shortNames:
+    - ap
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          description: Schema for the AraaliPolicy rules
+          type: object
+          properties:
+            enforce:
+              description: Entities to be enforace
+              type: object
+              properties:
+                containers:
+                  description: Araali policies per container
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        description: Name of the container
+                        type: string
+                      pod:
+                        description: Pod of the container
+                        type: string
+                      app:
+                        description: Name of the app
+                        type: string
+                      zone:
+                        description: Pod of the zone
+                        type: string
+                apps:
+                  description: Araali policies per zone/app
+                  type: array
+                  items:
+                    type: object
+                    description: Enforce config per app.
+                    properties:
+                      name:
+                        description: Name of the app
+                        type: string
+                      zone:
+                        description: Pod of the zone
+                        type: string
+                zones:
+                  description: Araali policies per zone
+                  type: array
+                  items:
+                    type: object
+                    description: Enforce config per zone.
+                    properties:
+                      name:
+                        description: Name of the zone
+                        type: string
+            containers:
+              description: Araali policies per container
+              type: array
+              items:
+                type: object
+                description: Each container object specifies it's name and processes within it.
+                properties:
+                  name:
+                    description: Name of the container
+                    type: string
+                  pod:
+                    description: Pod of the container
+                    type: string
+                  processes:
+                    type: array
+                    items:
+                      type: object
+                      description: Each process object specifies it's privileges
+                      properties:
+                        name:
+                          description: Process name
+                          type: string
+                        parentProcess:
+                          description: Parent process name
+                          type: string
+                        binaryName:
+                          description: Process binary name
+                          type: string
+                        cmdLine:
+                          description: Process command line
+                          type: string
+                        originalApp:
+                          description: Original App Name
+                          type: string
+                        toAraali:
+                          type: array
+                          description: Privileges to Araali endpoints
+                          items:
+                            type: object
+                            properties:
+                              zone:
+                                type: string
+                              app:
+                                type: string
+                              originalApp:
+                                type: string
+                              pod:
+                                type: string
+                              containerName:
+                                type: string
+                              process:
+                                type: string
+                              parentProcess:
+                                type: string
+                              binaryName:
+                                type: string
+                              action:
+                                  enum:
+                                  - ALLOW
+                                  - IGNORE
+                                  default: ALLOW
+                                  type: string
+                        toNonAraali:
+                          type: array
+                          description: Specify white listed Non-Araali endpoints
+                          items:
+                            type: object
+                            properties:
+                              fqdn:
+                                type: string
+                              ip:
+                                type: string
+                              port:
+                                type: integer
+                              action:
+                                enum:
+                                - ALLOW
+                                - IGNORE
+                                default: ALLOW  
+                                type: string
+                        exposedTo:
+                          type: array
+                          description: Specify white listed endpoints allowed to access services
+                          items:
+                            type: object
+                            properties:
+                              zone:
+                                type: string
+                              app:
+                                type: string
+                              originalApp:
+                                type: string
+                              pod:
+                                type: string
+                              containerName:
+                                type: string
+                              process:
+                                type: string
+                              parentProcess:
+                                type: string
+                              binaryName:
+                                type: string
+                              port:
+                                type: string
+                              scope:
+                                enum:
+                                - WORLD
+                                - HOME
+                                type: string
+                              action:
+                                enum:
+                                - ALLOW
+                                - IGNORE
+                                default: ALLOW
+                                type: string
+---
 apiVersion: v1
 kind: Namespace
 metadata:
