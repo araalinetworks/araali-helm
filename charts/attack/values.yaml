@@ -1,5 +1,4 @@
 araali:
-  zone: container-policy-test
   server_listen_port: 43234
   enable_socat_c2c: true
   socat_c2c_endpoint: 104.41.3.199:12345
