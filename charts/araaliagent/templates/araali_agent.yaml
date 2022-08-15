@@ -1,0 +1,110 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    is_agent: "true"
+  name: araali-agent
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: araali-secrets
+  namespace: araali-agent
+  labels:
+    is_agent: "true"
+data:
+  auth-token: "{{ .Values.araali.auth_token | b64enc }}"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: araali-agent-config
+  namespace: araali-agent
+  labels:
+    is_agent: "true"
+data:
+  araali.tenant_id: "{{ .Values.araali.tenant_id }}"
+  araali.backend: "{{ .Values.araali.backend }}"
+  araali.zone: "{{ .Values.araali.zone }}"
+  araali.debug: "{{ .Values.araali.log_level }}"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: araali-agent
+  namespace: araali-agent
+  labels:
+    is_agent: "true"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: araali-agent
+  labels:
+    is_agent: "true"
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: araali-agent
+  labels:
+    is_agent: "true"
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: araali-agent
+roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: araali-agent
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: araali-agent
+    namespace: araali-agent
+    labels:
+        name: araali-agent
+        is_agent: "true"
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            name: araali-agent
+    template:
+        metadata:
+            labels:
+                is_agent: "true"
+                name: araali-agent
+        spec:
+            containers:
+            - name: araali-agent
+              image: araalinetworks/agent:latest
+              imagePullPolicy: Always
+              volumeMounts:
+                - name: araali-secrets
+                  mountPath: /araali-secrets
+                - name: araali-agent-config
+                  mountPath: /araali-agent-config
+              env:
+              - name: GODEBUG
+                value: "madvdontneed=1"
+              - name: AUTH_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: araali-secrets
+                    key: auth-token
+            volumes:
+              - name: araali-secrets
+                secret:
+                  secretName: araali-secrets
+              - name: araali-agent-config
+                configMap:
+                  name: araali-agent-config
+            nodeSelector:
+              beta.kubernetes.io/os: linux

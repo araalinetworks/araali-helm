@@ -1,0 +1,6 @@
+araali:
+  auth_token:
+  zone: ""
+  tenant_id: ""
+  log_level: "INFO"
+  backend: "prod.aws.araalinetworks.com"
