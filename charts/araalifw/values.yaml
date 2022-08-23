@@ -1,11 +1,19 @@
 araali:
-  workload_id:
-  cluster_name:
-  fog:
-  zone:
-  app:
+  workload_id: bWV0YS10YXAtY2U5YzBjNGEtYTgxMi00NDI0LTg1YzAtOGNlMGU3MWJjZjA4
+  cluster_name: test-limits
+  fog: cloudfog.meta-tap.mufasa.aws.araalinetworks.com
+  zone: test-limits
+  app: ":k8s-nodes:"
   enforce: false
   upgrade: true
   autok8s_image: quay.io/araalinetworks/autok8s:prod
   fw_image: quay.io/araalinetworks/araali_fw:prod
   fw_init_image: quay.io/araalinetworks/araali_fw_init:prod
+  k8s_req_cpu: "100m"
+  k8s_limits_cpu: "500m"
+  k8s_req_mem: "256Mi"
+  k8s_limits_mem: "512Mi"
+  autok8s_req_cpu: "500m"
+  autok8s_limits_cpu: "500m"
+  autok8s_req_mem: "512Mi"
+  autok8s_limits_mem: "512Mi"
