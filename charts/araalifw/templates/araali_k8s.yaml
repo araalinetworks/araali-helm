@@ -431,13 +431,6 @@ spec:
               env:
               - name: GODEBUG
                 value: "madvdontneed=1"
-              resources:
-                requests:
-                  memory: "{{ .Values.araali.autok8s_req_mem }}"
-                  cpu: "{{ .Values.araali.autok8s_req_cpu }}"
-                limits:
-                  memory: "{{ .Values.araali.autok8s_limits_mem }}"
-                  cpu: "{{ .Values.araali.autok8s_limits_cpu }}"
             volumes:
               - name: araali-secrets
                 secret:

@@ -13,7 +13,3 @@ araali:
   k8s_limits_cpu: "500m"
   k8s_req_mem: "256Mi"
   k8s_limits_mem: "512Mi"
-  autok8s_req_cpu: "500m"
-  autok8s_limits_cpu: "500m"
-  autok8s_req_mem: "512Mi"
-  autok8s_limits_mem: "512Mi"
