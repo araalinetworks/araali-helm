@@ -1,10 +1,10 @@
 araali:
-  workload_id: bWV0YS10YXAtY2U5YzBjNGEtYTgxMi00NDI0LTg1YzAtOGNlMGU3MWJjZjA4
-  cluster_name: test-limits
-  fog: cloudfog.meta-tap.mufasa.aws.araalinetworks.com
-  zone: test-limits
+  workload_id: 
+  cluster_name: k8s-cluster
+  fog: 
+  zone: 
   app: ":k8s-nodes:"
-  enforce: false
+  enforce: true
   upgrade: true
   autok8s_image: quay.io/araalinetworks/autok8s:prod
   fw_image: quay.io/araalinetworks/araali_fw:prod
