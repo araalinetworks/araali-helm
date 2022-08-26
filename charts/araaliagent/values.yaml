@@ -2,5 +2,6 @@ araali:
   auth_token:
   zone: ""
   tenant_id: ""
+  agent_name: ""
   log_level: "INFO"
   backend: "prod.aws.araalinetworks.com"

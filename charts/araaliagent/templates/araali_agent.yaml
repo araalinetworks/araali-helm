@@ -25,6 +25,7 @@ metadata:
     is_agent: "true"
 data:
   araali.tenant_id: "{{ .Values.araali.tenant_id }}"
+  araali.agent_name: "{{ .Values.araali.agent_name }}"
   araali.backend: "{{ .Values.araali.backend }}"
   araali.zone: "{{ .Values.araali.zone }}"
   araali.log_level: "{{ .Values.araali.log_level }}"
