@@ -85,8 +85,12 @@ spec:
         spec:
             containers:
             - name: araali-agent
-              image: araalinetworks/agent:latest
+              image: {{ .Values.araali.image }}
               imagePullPolicy: Always
+              lifecycle:
+                preStop:
+                  exec:
+                    command: ["/bin/sh","-c", "pkill -USR2 araali-agent && sleep 1"]
               volumeMounts:
                 - name: araali-secrets
                   mountPath: /araali-secrets
