@@ -14,7 +14,8 @@ metadata:
   labels:
     is_agent: "true"
 data:
-  auth-token: "{{ .Values.araali.auth_token | b64enc }}"
+  workload-id: "{{ .Values.araali.workload-id | b64enc }}"
+  svid: ""
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -24,11 +25,11 @@ metadata:
   labels:
     is_agent: "true"
 data:
-  araali.tenant_id: "{{ .Values.araali.tenant_id }}"
-  araali.agent_name: "{{ .Values.araali.agent_name }}"
+  araali.tenant-id: "{{ .Values.araali.tenant-id }}"
+  araali.agent-name: "{{ .Values.araali.agent-name }}"
   araali.backend: "{{ .Values.araali.backend }}"
   araali.zone: "{{ .Values.araali.zone }}"
-  araali.log_level: "{{ .Values.araali.log_level }}"
+  araali.log-level: "{{ .Values.araali.log-level }}"
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -99,11 +100,11 @@ spec:
               env:
               - name: GODEBUG
                 value: "madvdontneed=1"
-              - name: AUTH_TOKEN
+              - name: WORKLOAD_ID
                 valueFrom:
                   secretKeyRef:
                     name: araali-secrets
-                    key: auth-token
+                    key: workload-id
             volumes:
               - name: araali-secrets
                 secret:

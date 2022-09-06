@@ -1,8 +1,8 @@
 araali:
-  auth_token:
+  workload-id:
   zone: ""
-  tenant_id: ""
-  agent_name: ""
+  tenant-id: ""
+  agent-name: ""
   image: "i175118736976.dkr.ecr.us-west-2.amazonaws.com/araali/araali-agent:latest"
-  log_level: "INFO"
+  log-level: "INFO"
   backend: "prod.aws.araalinetworks.com"
