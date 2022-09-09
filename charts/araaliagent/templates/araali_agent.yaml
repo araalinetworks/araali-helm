@@ -14,7 +14,7 @@ metadata:
   labels:
     is_agent: "true"
 data:
-  workload-id: "{{ .Values.araali.workload-id | b64enc }}"
+  workload-id: {{ index .Values.araali "workload-id" | b64enc }}
   svid: ""
 ---
 apiVersion: v1
@@ -25,11 +25,11 @@ metadata:
   labels:
     is_agent: "true"
 data:
-  araali.tenant-id: "{{ .Values.araali.tenant-id }}"
-  araali.agent-name: "{{ .Values.araali.agent-name }}"
-  araali.backend: "{{ .Values.araali.backend }}"
-  araali.zone: "{{ .Values.araali.zone }}"
-  araali.log-level: "{{ .Values.araali.log-level }}"
+  araali.tenant-id: {{ index .Values.araali "tenant-id" }}
+  araali.agent-name: {{ index .Values.araali "agent-name" }}
+  araali.backend: {{ index .Values.araali "backend" }}
+  araali.zone: {{ index .Values.araali "zone" }}
+  araali.log-level: {{ index .Values.araali "log-level" }}
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -86,7 +86,7 @@ spec:
         spec:
             containers:
             - name: araali-agent
-              image: {{ .Values.araali.image }}
+              image: {{ index .Values.araali "image" }}
               imagePullPolicy: Always
               lifecycle:
                 preStop:

@@ -3,6 +3,6 @@ araali:
   zone: ""
   tenant-id: ""
   agent-name: ""
-  image: "i175118736976.dkr.ecr.us-west-2.amazonaws.com/araali/araali-agent:latest"
+  image: "175118736976.dkr.ecr.us-west-2.amazonaws.com/araali/araali-agent:latest"
   log-level: "INFO"
   backend: "prod.aws.araalinetworks.com"
