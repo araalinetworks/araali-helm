@@ -1,0 +1,117 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: goshelly-helm
+  labels:
+    name: goshelly-helm
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: goshelly-helm
+provisioner: docker.io/hostpath
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: goshelly-helm
+  namespace: goshelly-helm
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/goshelly-helm"
+  storageClassName: goshelly-helm
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: goshelly-helm
+  namespace: goshelly-helm
+spec:
+  storageClassName: goshelly-helm
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: goshelly-helm
+  namespace: goshelly-helm
+spec:
+  volumes:
+    - name: goshelly-helm
+      persistentVolumeClaim:
+        claimName: goshelly-helm
+  containers:
+    - name: goshelly-helm
+      image: ubuntu:latest
+      command: ["/bin/sleep", "3650d"]
+      volumeMounts:
+        - mountPath: "/mnt/goshelly-helm"
+          name: goshelly-helm
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-all
+  namespace: goshelly-helm
+spec:
+  podSelector:
+    matchLabels:
+      app: goshelly-helm
+  ingress:
+    - {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goshelly-helm
+  namespace: goshelly-helm
+  labels:
+    app: goshelly-helm
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: goshelly-helm
+  template:
+    metadata:
+      labels:
+        app: goshelly-helm
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: goshelly-helm
+          image: arorasoham9/goshelly-server:linux_helm_832
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9000
+          readinessProbe:
+            tcpSocket:
+              port: 9000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 9000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          volumeMounts:
+            - mountPath: "/mnt/goshelly-helm"
+              name: goshelly-helm
+      volumes:
+        - name: goshelly-helm
+          persistentVolumeClaim:
+            claimName: goshelly-helm
+---
+
