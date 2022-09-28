@@ -96,14 +96,14 @@ spec:
                 - name: araali-secrets
                   mountPath: /araali-secrets
                 - name: araali-agent-config
-                  mountPath: /araali-agent-config
+                  mountPath: /araali-agent-config{{ if eq .Values.araali.mem "true" }}
               resources:
                 requests:
                   memory: "{{ index .Values.araali "k8s-req-mem" }}"
                   cpu: "{{ index .Values.araali "k8s-req-cpu" }}"
                 limits:
                   memory: "{{ index .Values.araali "k8s-limits-mem" }}"
-                  cpu: "{{ index .Values.araali "k8s-limits-cpu" }}"
+                  cpu: "{{ index .Values.araali "k8s-limits-cpu" }}"{{ end }}
               env:
               - name: GODEBUG
                 value: "madvdontneed=1"
