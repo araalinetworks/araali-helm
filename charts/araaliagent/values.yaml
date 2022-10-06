@@ -6,7 +6,7 @@ araali:
   image: "quay.io/araalinetworks/araaliagent:prod"
   log-level: "INFO"
   backend: "prod.aws.araalinetworks.com"
-  mem: "false"
+  mem: "true"
   k8s-req-cpu: "50m"
   k8s-limits-cpu: "100m"
   k8s-req-mem: "128Mi"
