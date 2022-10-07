@@ -1,8 +1,6 @@
 araali:
   workload-id:
   zone: ""
-  tenant-id: ""
-  agent-name: ""
   image: "quay.io/araalinetworks/araaliagent:prod"
   log-level: "INFO"
   backend: "prod.aws.araalinetworks.com"
