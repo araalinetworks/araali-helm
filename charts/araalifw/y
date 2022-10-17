@@ -1,3 +1,31 @@
+Release "araali-fw" does not exist. Installing it now.
+NAME: araali-fw
+LAST DEPLOYED: Mon Oct 17 21:18:38 2022
+NAMESPACE: default
+STATUS: pending-install
+REVISION: 1
+TEST SUITE: None
+HOOKS:
+MANIFEST:
+---
+# Source: araali-fw/templates/araali_k8s.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    is_araali: "true"
+  name: araali-operator
+---
+# Source: araali-fw/templates/araali_k8s.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: araali-operator
+  namespace: araali-operator
+  labels:
+    is_araali: "true"
+---
+# Source: araali-fw/templates/araali_k8s.yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -6,8 +34,20 @@ metadata:
   labels:
     is_araali: "true"
 data:
-  workloadId: {{ .Values.araali.workload_id }}
+  workloadId: Y2N1YXQ0YjB0bDc3NWxtMXM4M2ctZWtzLW1hbmFnZW1lbnQtMDc4NTZmMzUtNTVjZi00ODI2LTkyN2ItMGQ3YzRhZjBkYjA0
 ---
+# Source: araali-fw/templates/araali_k8s.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: araali-secrets
+  namespace: araali-operator
+  labels:
+    is_araali: "true"
+data:
+  workloadId: Y2N1YXQ0YjB0bDc3NWxtMXM4M2ctZWtzLW1hbmFnZW1lbnQtMDc4NTZmMzUtNTVjZi00ODI2LTkyN2ItMGQ3YzRhZjBkYjA0
+---
+# Source: araali-fw/templates/araali_k8s.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -19,148 +59,49 @@ data:
   gtorcfg.tap_mode: "true"
   gtorcfg.gtor_shim_enable: "false"
   gtorcfg.ebpf: "true"
-  gtorcfg.ebpf_cookie: "{{ .Values.araali.enforce }}"
-  gtorcfg.gtor_upgrade: "{{ .Values.araali.upgrade }}"
-  gtorcfg.enable_per_process_vulnerabilities: "{{ .Values.araali.enable_per_process_vulnerabilities }}"
-  gtorcfg.enable_container_vulnerabilities: "{{ .Values.araali.enable_container_vulnerabilities }}"
-  gtorcfg.ebpf_dedup_flows: "{{ .Values.araali.ebpf_dedup_flows }}"
-  gtorcfg.ebpf_rate_limit_flows: "{{ .Values.araali.ebpf_rate_limit_flows }}"
-  gtorcfg.cpu_limit_enabled: "{{ .Values.araali.cpu_limit_enabled }}"
-  gtorcfg.agent_cpu_limit: "{{ .Values.araali.agent_cpu_limit }}"
-  gtorcfg.sys_cpu_threshold: "{{ .Values.araali.sys_cpu_threshold }}"
-  gtorcfg.vuln_idle_duty_cycles: "{{ .Values.araali.vuln_idle_duty_cycles }}"
-  gtorcfg.agent_limited_resources: "{{ .Values.araali.agent_limited_resources }}"
-  gtorcfg.vuln_min_cores: "{{ .Values.araali.vuln_min_cores }}"
-  gtorcfg.vuln_image_size: "{{ .Values.araali.vuln_image_size }}"
-  gtorcfg.agent_nice_enabled: "{{ .Values.araali.agent_nice_enabled }}"
-  gtorcfg.agent_nice_value: "{{ .Values.araali.agent_nice_value }}"
-  gtorcfg.enter_mini_shell: "{{ .Values.araali.enter_mini_shell }}"
-  gtorcfg.fog_fqdn: "{{ .Values.araali.fog }}"
+  gtorcfg.ebpf_cookie: "true"
+  gtorcfg.gtor_upgrade: "true"
+  gtorcfg.enable_per_process_vulnerabilities: "false"
+  gtorcfg.enable_container_vulnerabilities: "true"
+  gtorcfg.ebpf_dedup_flows: "false"
+  gtorcfg.ebpf_rate_limit_flows: "false"
+  gtorcfg.cpu_limit_enabled: "false"
+  gtorcfg.agent_cpu_limit: "10"
+  gtorcfg.sys_cpu_threshold: "80"
+  gtorcfg.vuln_idle_duty_cycles: "1"
+  gtorcfg.agent_limited_resources: "false"
+  gtorcfg.vuln_min_cores: "2"
+  gtorcfg.vuln_image_size: "256"
+  gtorcfg.agent_nice_enabled: "false"
+  gtorcfg.agent_nice_value: "10"
+  gtorcfg.enter_mini_shell: "false"
+  gtorcfg.fog_fqdn: "fog.freemium.aws.araalinetworks.com"
   gtorenv.k8s_yaml_version: "1.1"
   gtorenv.araali_enable: "1"
   gtorenv.path: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/hroot/usr/sbin:/hroot/usr/bin:/hroot/sbin:/hroot/bin:/hroot/usr/local/sbin:/hroot/usr/local/bin"
-  araalitags.zone: "{{ .Values.araali.zone }}"
-  araalitags.clusterName: "{{ .Values.araali.cluster_name }}"
-  araalitags.app: "{{ .Values.araali.app }}"
-  araalitags.origImageName: "{{ .Values.araali.fw_image }}"
+  araalitags.zone: "eks-management"
+  araalitags.clusterName: "k8s-cluster"
+  araalitags.app: ":k8s-nodes:"
+  araalitags.origImageName: "quay.io/araalinetworks/araali_fw:prod"
 ---
-kind: DaemonSet
-apiVersion: apps/v1
+# Source: araali-fw/templates/araali_k8s.yaml
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: araali-fw
-  namespace: kube-system
+  name: araali-operator-config
+  namespace: araali-operator
   labels:
     is_araali: "true"
-spec:
-  selector:
-    matchLabels:
-      araali: araali-fw
-  template:
-    metadata:
-      labels:
-        araali: araali-fw
-        is_araali: "true"
-    spec:
-      initContainers:
-      - image: "{{ .Values.araali.fw_init_image }}"
-        imagePullPolicy: Always
-        name: araali-fw-init
-        env:
-          - name: "PATH"
-            value: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/hroot/usr/sbin:/hroot/usr/bin:/hroot/sbin:/hroot/bin:/hroot/usr/local/sbin:/hroot/usr/local/bin"
-        volumeMounts:
-          - name: host-root
-            mountPath: /hroot
-          - name: sys-bpf
-            mountPath: /sys/fs/bpf
-            mountPropagation: Bidirectional
-          - name: docker-sock
-            mountPath: /var/run/docker.sock
-            readOnly: true
-        securityContext:
-          privileged: true
-      containers:
-      - image: "{{ .Values.araali.fw_image }}"
-        imagePullPolicy: Always
-        name: araali-fw
-        lifecycle:
-          preStop:
-            exec:
-              command: ["/bin/sh","-c", "echo \"Clear TC at \"$(date) >> /hroot/tmp/dset_tc_cleanup.log && /opt/araali/bin/araalictl guarantor -stop >> /hroot/tmp/dset_tc_cleanup.log"]
-        env:
-          - name: "GODEBUG"
-            value: "madvdontneed=1"
-        volumeMounts:
-          - name: araali-secrets
-            mountPath: /araali-secrets
-          - name: araali-config
-            mountPath: /araali-config
-          - name: host-root
-            mountPath: /hroot
-          - name: etc-hosts
-            mountPath: /etc/hosts
-          - name: sys-debug
-            mountPath: /sys/kernel/debug
-          - name: fs-cgroup
-            mountPath: /sys/fs/cgroup
-          - name: sys-bpf
-            mountPath: /sys/fs/bpf
-            mountPropagation: Bidirectional
-          - name: boot
-            mountPath: /boot
-          - name: docker-sock
-            mountPath: /var/run/docker.sock
-            readOnly: true
-        securityContext:
-          privileged: true
-        resources:
-          requests:
-            memory: "{{ .Values.araali.k8s_req_mem }}"
-            cpu: "{{ .Values.araali.k8s_req_cpu }}"
-          limits:
-            memory: "{{ .Values.araali.k8s_limits_mem }}"
-            cpu: "{{ .Values.araali.k8s_limits_cpu }}"
-      hostNetwork: true
-      hostPID: true
-      hostIPC: true
-      volumes:
-        - name: araali-secrets
-          secret:
-            secretName: araali-secrets
-        - name: araali-config
-          configMap:
-            name: araali-config
-        - name: host-root
-          hostPath:
-            path: /
-        - name: etc-hosts
-          hostPath:
-            path: /etc/hosts
-        - name: sys-debug
-          hostPath:
-            path: /sys/kernel/debug
-        - name: fs-cgroup
-          hostPath:
-            path: /sys/fs/cgroup
-        - name: sys-bpf
-          hostPath:
-            path: /sys/fs/bpf
-            type: DirectoryOrCreate
-        - name: boot
-          hostPath:
-            path: /boot
-        - name: docker-sock
-          hostPath:
-            path: /var/run/docker.sock
-      restartPolicy: Always
-      priorityClassName: system-node-critical
-      tolerations:
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/master
-      - effect: NoSchedule
-        key: node.kubernetes.io/not-ready
-      - operator: "Exists"
+data:
+  araalitags.operator.fog_fqdn: "fog.freemium.aws.araalinetworks.com"
+  araalitags.operator.upgrade_disable: "0"
+  araalitags.operator.araali_k8s_policy_enable: "1"
+  araalitags.zone: "eks-management"
+  araalitags.clusterName: "k8s-cluster"
+  araalitags.app: ":k8s-nodes:"
+  araalitags.origImageName: "quay.io/araalinetworks/araali_fw:prod"
 ---
+# Source: araali-fw/templates/araali_k8s.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -347,47 +288,7 @@ spec:
                                 default: ALLOW
                                 type: string
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    is_araali: "true"
-  name: araali-operator
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: araali-secrets
-  namespace: araali-operator
-  labels:
-    is_araali: "true"
-data:
-  workloadId: {{ .Values.araali.workload_id }}
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: araali-operator-config
-  namespace: araali-operator
-  labels:
-    is_araali: "true"
-data:
-  araalitags.operator.fog_fqdn: "{{ .Values.araali.fog }}"
-  araalitags.operator.upgrade_disable: "0"
-  araalitags.operator.araali_k8s_policy_enable: "1"
-  araalitags.zone: "{{ .Values.araali.zone }}"
-  araalitags.clusterName: "{{ .Values.araali.cluster_name }}"
-  araalitags.app: "{{ .Values.araali.app }}"
-  araalitags.origImageName: "{{ .Values.araali.fw_image }}"
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: araali-operator
-  namespace: araali-operator
-  labels:
-    is_araali: "true"
----
+# Source: araali-fw/templates/araali_k8s.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -399,6 +300,7 @@ rules:
   resources: ["*"]
   verbs: ["get", "list", "watch"]
 ---
+# Source: araali-fw/templates/araali_k8s.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -414,6 +316,141 @@ roleRef:
     kind: ClusterRole
     name: araali-operator
 ---
+# Source: araali-fw/templates/araali_k8s.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicediscovery
+  namespace: araali-operator
+  labels:
+    name: servicediscovery
+    is_araali: "true"
+spec:
+  ports:
+  - port: 50054
+    targetPort: 50054
+  selector:
+    name: servicediscovery
+---
+# Source: araali-fw/templates/araali_k8s.yaml
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: araali-fw
+  namespace: kube-system
+  labels:
+    is_araali: "true"
+spec:
+  selector:
+    matchLabels:
+      araali: araali-fw
+  template:
+    metadata:
+      labels:
+        araali: araali-fw
+        is_araali: "true"
+    spec:
+      initContainers:
+      - image: "quay.io/araalinetworks/araali_fw_init:prod"
+        imagePullPolicy: Always
+        name: araali-fw-init
+        env:
+          - name: "PATH"
+            value: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/hroot/usr/sbin:/hroot/usr/bin:/hroot/sbin:/hroot/bin:/hroot/usr/local/sbin:/hroot/usr/local/bin"
+        volumeMounts:
+          - name: host-root
+            mountPath: /hroot
+          - name: sys-bpf
+            mountPath: /sys/fs/bpf
+            mountPropagation: Bidirectional
+          - name: docker-sock
+            mountPath: /var/run/docker.sock
+            readOnly: true
+        securityContext:
+          privileged: true
+      containers:
+      - image: "quay.io/araalinetworks/araali_fw:prod"
+        imagePullPolicy: Always
+        name: araali-fw
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh","-c", "echo \"Clear TC at \"$(date) >> /hroot/tmp/dset_tc_cleanup.log && /opt/araali/bin/araalictl guarantor -stop >> /hroot/tmp/dset_tc_cleanup.log"]
+        env:
+          - name: "GODEBUG"
+            value: "madvdontneed=1"
+        volumeMounts:
+          - name: araali-secrets
+            mountPath: /araali-secrets
+          - name: araali-config
+            mountPath: /araali-config
+          - name: host-root
+            mountPath: /hroot
+          - name: etc-hosts
+            mountPath: /etc/hosts
+          - name: sys-debug
+            mountPath: /sys/kernel/debug
+          - name: fs-cgroup
+            mountPath: /sys/fs/cgroup
+          - name: sys-bpf
+            mountPath: /sys/fs/bpf
+            mountPropagation: Bidirectional
+          - name: boot
+            mountPath: /boot
+          - name: docker-sock
+            mountPath: /var/run/docker.sock
+            readOnly: true
+        securityContext:
+          privileged: true
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      hostNetwork: true
+      hostPID: true
+      hostIPC: true
+      volumes:
+        - name: araali-secrets
+          secret:
+            secretName: araali-secrets
+        - name: araali-config
+          configMap:
+            name: araali-config
+        - name: host-root
+          hostPath:
+            path: /
+        - name: etc-hosts
+          hostPath:
+            path: /etc/hosts
+        - name: sys-debug
+          hostPath:
+            path: /sys/kernel/debug
+        - name: fs-cgroup
+          hostPath:
+            path: /sys/fs/cgroup
+        - name: sys-bpf
+          hostPath:
+            path: /sys/fs/bpf
+            type: DirectoryOrCreate
+        - name: boot
+          hostPath:
+            path: /boot
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock
+      restartPolicy: Always
+      priorityClassName: system-node-critical
+      tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
+      - effect: NoSchedule
+        key: node.kubernetes.io/not-ready
+      - operator: "Exists"
+---
+# Source: araali-fw/templates/araali_k8s.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -435,7 +472,7 @@ spec:
         spec:
             containers:
             - name: servicediscovery
-              image: "{{ .Values.araali.autok8s_image }}"
+              image: "quay.io/araalinetworks/autok8s:prod"
               imagePullPolicy: Always
               volumeMounts:
                 - name: araali-secrets
@@ -454,18 +491,4 @@ spec:
                   name: araali-operator-config
             nodeSelector:
               beta.kubernetes.io/os: linux
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: servicediscovery
-  namespace: araali-operator
-  labels:
-    name: servicediscovery
-    is_araali: "true"
-spec:
-  ports:
-  - port: 50054
-    targetPort: 50054
-  selector:
-    name: servicediscovery
+

@@ -13,6 +13,8 @@ araali:
   k8s_limits_cpu: "500m"
   k8s_req_mem: "256Mi"
   k8s_limits_mem: "512Mi"
+  enable_per_process_vulnerabilities: "false"
+  enable_container_vulnerabilities: "false"
   ebpf_dedup_flows: "true"
   ebpf_rate_limit_flows: "false"
   cpu_limit_enabled: "false"
