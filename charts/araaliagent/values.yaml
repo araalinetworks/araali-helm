@@ -10,4 +10,3 @@ araali:
   k8s-limits-cpu: "100m"
   k8s-req-mem: "128Mi"
   k8s-limits-mem: "256Mi"
-  controller: "true"

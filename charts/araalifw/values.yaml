@@ -27,3 +27,4 @@ araali:
   agent_nice_enabled: "false"
   agent_nice_value: "10"
   enter_mini_shell: "false"
+  controller: "false"

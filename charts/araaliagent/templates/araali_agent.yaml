@@ -29,7 +29,6 @@ data:
   araali.zone: {{ index .Values.araali "zone" }}
   araali.log-level: {{ index .Values.araali "log-level" }}
   araali.fw-helm-version: {{ index .Values.araali "fw-helm-version" }}
-  araali.controller: {{ index .Values.araali "controller" }}
 ---
 apiVersion: v1
 kind: ServiceAccount
