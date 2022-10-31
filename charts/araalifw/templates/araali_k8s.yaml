@@ -36,7 +36,7 @@ data:
   gtorcfg.agent_nice_value: "{{ .Values.araali.agent_nice_value }}"
   gtorcfg.enter_mini_shell: "{{ .Values.araali.enter_mini_shell }}"
   gtorcfg.fog_fqdn: "{{ .Values.araali.fog }}"
-  gtorcfg.controller: "{{ .Values.araali.controller }}"
+  araali.controller: "{{ .Values.araali.controller }}"
   gtorenv.k8s_yaml_version: "1.1"
   gtorenv.araali_enable: "1"
   gtorenv.path: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/hroot/usr/sbin:/hroot/usr/bin:/hroot/sbin:/hroot/bin:/hroot/usr/local/sbin:/hroot/usr/local/bin"

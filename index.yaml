@@ -3,7 +3,7 @@ entries:
   araali-agent:
   - apiVersion: v2
     appVersion: 0.5.92
-    created: "2022-10-31T08:06:15.758145726Z"
+    created: "2022-10-31T18:40:16.222721372Z"
     description: A Helm chart for installing the Araali Agent in a cluster
     digest: d1c2b0ac7ba9b80d8e5a8f51a41a84f65c4ff7815f19ad0abd7c7921618c8c9f
     name: araali-agent
@@ -14,7 +14,7 @@ entries:
   araali-attack:
   - apiVersion: v2
     appVersion: 0.5.76
-    created: "2022-10-31T08:06:15.759525225Z"
+    created: "2022-10-31T18:40:16.226787844Z"
     description: A Helm chart for installing the Araali Vulnerability Detection
     digest: 3ec2a32de9f777a793e3923eab9ab2b60a6ac4f70cf49c6ad9b7d11545bcb48b
     name: araali-attack
@@ -24,7 +24,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: 0.5.76
-    created: "2022-10-31T08:06:15.759199283Z"
+    created: "2022-10-31T18:40:16.226235217Z"
     description: A Helm chart for installing the Araali Vulnerability Detection
     digest: ceb89324fdd0aa24aa398596312ccb57c77aa1461bf90a040e120791aba1d9a3
     name: araali-attack
@@ -34,7 +34,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 0.5.76
-    created: "2022-10-31T08:06:15.758797447Z"
+    created: "2022-10-31T18:40:16.223727308Z"
     description: A Helm chart for installing the Araali Vulnerability Detection
     digest: 4df88bb27b866361575eff33ffdb6d59986bca8748f90457e0224d282ce156cb
     name: araali-attack
@@ -45,9 +45,9 @@ entries:
   araali-fw:
   - apiVersion: v2
     appVersion: 0.5.92
-    created: "2022-10-31T08:06:15.758568388Z"
+    created: "2022-10-31T18:40:16.223395651Z"
     description: A Helm chart for installing the Araali Distributed Firewall
-    digest: 26058e1781c2f8db1335f2f07f50a0b06ae7613e0aba0a2ccdbb65141b3229f1
+    digest: c667aceba491280dd7ae6941a89e199661fe10fdfdc8c27317f41b8aa71dd3db
     name: araali-fw
     type: application
     urls:
@@ -56,7 +56,7 @@ entries:
   goshelly-server:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-10-31T08:06:15.76016242Z"
+    created: "2022-10-31T18:40:16.227460079Z"
     description: A Helm chart for Araali GoShelly Server
     digest: 23a3f42691bb4432c54fcec939541d0e8135ea3c10ab2e706308a2019701b203
     name: goshelly-server
@@ -64,4 +64,4 @@ entries:
     urls:
     - https://araalinetworks.github.io/araali-helm/charts/goshelly/goshelly-server-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-31T08:06:15.75711722Z"
+generated: "2022-10-31T18:40:16.22124836Z"
