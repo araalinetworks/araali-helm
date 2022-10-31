@@ -4,7 +4,7 @@ araali:
   image: "quay.io/araalinetworks/araaliagent:prod"
   log-level: "INFO"
   backend: "prod.aws.araalinetworks.com"
-  fw-helm-version: "1.0.6"
+  fw-helm-version: "1.0.0"
   mem: "true"
   k8s-req-cpu: "50m"
   k8s-limits-cpu: "100m"
