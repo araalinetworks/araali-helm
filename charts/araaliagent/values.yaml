@@ -3,6 +3,7 @@ araali:
   zone: ""
   image: "quay.io/araalinetworks/araaliagent:prod"
   log-level: "INFO"
+  upgrade-disable: "false"
   backend: "prod.aws.araalinetworks.com"
   fw-helm-version: "1.0.0"
   mem: "true"
