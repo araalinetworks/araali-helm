@@ -1,0 +1,31 @@
+araali:
+  workload_id: 
+  cluster_name: k8s-cluster
+  fog: 
+  zone: 
+  app: ":k8s-nodes:"
+  enforce: true
+  upgrade: true
+  autok8s_image: quay.io/araalinetworks/autok8s:prod
+  fw_image: quay.io/araalinetworks/araali_fw:prod
+  fw_init_image: quay.io/araalinetworks/araali_fw_init:prod
+  k8s_req_cpu: "100m"
+  k8s_limits_cpu: "500m"
+  k8s_req_mem: "256Mi"
+  k8s_limits_mem: "512Mi"
+  enable_per_process_vulnerabilities: "false"
+  enable_container_vulnerabilities: "false"
+  ebpf_dedup_flows: "true"
+  ebpf_rate_limit_flows: "false"
+  cpu_limit_enabled: "false"
+  agent_cpu_limit: "10"
+  sys_cpu_threshold: "80"
+  vuln_idle_duty_cycles: "1"
+  agent_limited_resources: "false"
+  vuln_min_cores: "2"
+  vuln_image_size: "256"
+  agent_nice_enabled: "false"
+  agent_nice_value: "10"
+  enter_mini_shell: "false"
+  controller: "false"
+type: "fw-single-ns"
