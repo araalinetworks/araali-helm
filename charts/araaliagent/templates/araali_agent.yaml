@@ -28,7 +28,7 @@ data:
   araali.backend: {{ index .Values.araali "backend" }}
   araali.zone: {{ index .Values.araali "zone" }}
   araali.log-level: {{ index .Values.araali "log-level" }}
-  araali.upgrade-disable: "{{ index .Values.araali "upgrade-disable" }}"
+  araali.upgrade-disable: {{ index .Values.araali "upgrade-disable" }}
   araali.fw-helm-version: {{ index .Values.araali "fw-helm-version" }}
 ---
 apiVersion: v1
