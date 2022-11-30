@@ -6,6 +6,7 @@ araali:
   upgrade-disable: "false"
   backend: "prod.aws.araalinetworks.com"
   fw-helm-version: "1.0.0"
+  fw-helm-chart: "araali-helm/araali-fw"
   mem: "true"
   k8s-req-cpu: "50m"
   k8s-limits-cpu: "100m"
