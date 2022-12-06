@@ -319,7 +319,7 @@ spec:
                                 enum:
                                 - ALLOW
                                 - IGNORE
-                                default: ALLOW  
+                                default: ALLOW
                                 type: string
                         exposedTo:
                           type: array
@@ -462,6 +462,7 @@ spec:
   ports:
   - port: 50054
     targetPort: 50054
+    nodePort: 50054
   selector:
     name: servicediscovery
 {{- end -}}
