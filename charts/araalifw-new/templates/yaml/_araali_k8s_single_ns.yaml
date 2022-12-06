@@ -458,6 +458,7 @@ metadata:
     name: servicediscovery
     is_araali: "true"
 spec:
+  type: NodePort
   ports:
   - port: 50054
     targetPort: 50054
