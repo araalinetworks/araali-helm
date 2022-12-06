@@ -1,8 +1,8 @@
 araali:
-  workload_id: 
+  workload_id:
   cluster_name: k8s-cluster
-  fog: 
-  zone: 
+  fog:
+  zone:
   app: ":k8s-nodes:"
   enforce: true
   upgrade: true
@@ -28,5 +28,5 @@ araali:
   agent_nice_value: "10"
   enter_mini_shell: "false"
   controller: "false"
-  autok8s_target_node_port: 50054
+  autok8s_target_node_port: 32765
 type: "fw-single-ns"
