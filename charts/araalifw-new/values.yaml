@@ -29,4 +29,5 @@ araali:
   enter_mini_shell: "false"
   controller: "false"
   autok8s_target_node_port: 32765
+  enable_autok8s_comm: "true"
 type: "fw-single-ns"
