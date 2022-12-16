@@ -1,3 +1,5 @@
 {{ if eq .Values.type "fw-single-ns" }}
   {{ template "araali_k8s_single_ns" . }}
+{{ else if eq .Values.type "fw-single-ns-ak8s-split" }}
+  {{ template "araali_k8s_single_ns_ak8s_split" . }}
 {{ end }}
