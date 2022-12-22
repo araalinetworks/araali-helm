@@ -47,6 +47,7 @@ data:
   gtorcfg.autok8s_target_node_port: "{{ .Values.araali.autok8s_target_node_port }}"
   gtorcfg.enable_autok8s_comm: "{{ .Values.araali.enable_autok8s_comm }}"
   gtorcfg.fog_fqdn: "{{ .Values.araali.fog }}"
+  gtorcfg.fim: "{{ .Values.araali.fim }}"
   araali.controller: "{{ .Values.araali.controller }}"
   gtorenv.k8s_yaml_version: "1.1"
   gtorenv.araali_enable: "1"
