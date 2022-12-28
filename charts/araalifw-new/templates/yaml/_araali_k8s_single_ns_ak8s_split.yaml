@@ -73,6 +73,8 @@ spec:
         araali: araali-fw
         is_araali: "true"
     spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
       initContainers:
       - image: "{{ .Values.araali.fw_init_image }}"
         imagePullPolicy: Always
@@ -165,7 +167,6 @@ spec:
           hostPath:
             path: /var/run/docker.sock
       restartPolicy: Always
-      priorityClassName: system-node-critical
       tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/master
