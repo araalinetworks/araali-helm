@@ -1,0 +1,76 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    is_quickstart: "true"
+  name: araali-quickstartnanny
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: araali-quickstartnanny
+  namespace: araali-quickstartnanny
+  labels:
+    is_quickstart: "true"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: araali-quickstartnanny
+  labels:
+    is_quickstart: "true"
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: araali-quickstartnanny
+  labels:
+    is_quickstart: "true"
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: araali-quickstartnanny
+roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: araali-quickstartnanny
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+    name: araali-quickstartnanny
+    namespace: araali-quickstartnanny
+    labels:
+        name: araali-quickstartnanny
+spec:
+    template:
+        metadata:
+            labels:
+                is_quickstart: "true"
+                name: araali-quickstartnanny
+        spec:
+            restartPolicy: Never
+            containers:
+            - name: araali-quickstartnanny
+              {{- if not .Values.image }}
+              image: quay.io/araalinetworks/quickstartnanny:prod
+              {{- else }}
+              image: {{ .Values.image }}
+              {{- end}}
+              imagePullPolicy: Always
+              env:
+              - name: ARAALI_USER
+                value: {{ .Values.email | quote }}
+              - name: ARAALI_BACKEND
+                {{- if not .Values.backend }}
+                value: prod.aws.araalinetworks.com
+                {{- else }}
+                value: {{ .Values.backend }}
+                {{- end}}
+            nodeSelector:
+              beta.kubernetes.io/os: linux
