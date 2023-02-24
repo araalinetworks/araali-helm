@@ -31,4 +31,5 @@ araali:
   autok8s_target_node_port: 32765
   enable_autok8s_comm: "true"
   fim : "false"
+  generic_config_blob: ""
 type: "fw-single-ns"
