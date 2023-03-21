@@ -28,6 +28,8 @@ araali:
   agent_nice_value: "10"
   enter_mini_shell: "false"
   controller: "false"
+  freemium: "false"
+  upgrade_through_agent: "false"
   autok8s_target_node_port: 32765
   enable_autok8s_comm: "true"
   fim : "false"
