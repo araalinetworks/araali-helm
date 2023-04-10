@@ -1,4 +1,5 @@
 {{- define "araali_k8s_single_ns" -}}
+{{ if eq .Values.create_araali_ns "true" }}
 ---
 apiVersion: v1
 kind: Namespace
@@ -6,6 +7,7 @@ metadata:
   labels:
     is_araali: "true"
   name: araali
+{{ end }}
 ---
 apiVersion: v1
 kind: Secret

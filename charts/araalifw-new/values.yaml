@@ -35,3 +35,4 @@ araali:
   fim : "false"
   generic_config_blob: ""
 type: "fw-single-ns"
+create_araali_ns: "true"
