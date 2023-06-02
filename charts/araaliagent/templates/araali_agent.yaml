@@ -32,6 +32,14 @@ data:
   araali.fw-helm-version: {{ index .Values.araali "fw-helm-version" }}
 ---
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: araali-user-config
+  namespace: araali-agent
+  labels:
+    is_agent: "true"
+---
+apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: araali-agent
@@ -95,6 +103,8 @@ spec:
               volumeMounts:
                 - name: araali-secrets
                   mountPath: /araali-secrets
+                - name: araali-user-config
+                  mountPath: /araali-user-config
                 - name: araali-agent-config
                   mountPath: /araali-agent-config{{ if eq .Values.araali.mem "true" }}
               resources:
@@ -119,5 +129,8 @@ spec:
               - name: araali-agent-config
                 configMap:
                   name: araali-agent-config
+              - name: araali-user-config
+                configMap:
+                  name: araali-user-config
             nodeSelector:
               beta.kubernetes.io/os: linux
