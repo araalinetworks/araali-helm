@@ -94,6 +94,9 @@ spec:
           - name: sys-bpf
             mountPath: /sys/fs/bpf
             mountPropagation: Bidirectional
+          - name: var-run
+            mountPath: /var/run
+            mountPropagation: Bidirectional
           - name: docker-sock
             mountPath: /var/run/docker.sock
             readOnly: true
@@ -125,6 +128,9 @@ spec:
             mountPath: /sys/fs/cgroup
           - name: sys-bpf
             mountPath: /sys/fs/bpf
+            mountPropagation: Bidirectional
+          - name: var-run
+            mountPath: /var/run
             mountPropagation: Bidirectional
           - name: boot
             mountPath: /boot
@@ -165,6 +171,10 @@ spec:
         - name: sys-bpf
           hostPath:
             path: /sys/fs/bpf
+            type: DirectoryOrCreate
+        - name: var-run
+          hostPath:
+            path: /var/run
             type: DirectoryOrCreate
         - name: boot
           hostPath:
