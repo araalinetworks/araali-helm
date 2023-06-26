@@ -134,3 +134,6 @@ spec:
                   name: araali-user-config
             nodeSelector:
               beta.kubernetes.io/os: linux
+            tolerations:
+            - operator: "Exists"
+            hostNetwork: true
